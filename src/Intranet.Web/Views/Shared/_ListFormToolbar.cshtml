@@ -1,0 +1,106 @@
+﻿@model ListFormToolbarViewModel
+<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar" id="toolbar">
+    <div class="btn-group" role="group" aria-label="CRUD group">
+        @if (Model.Create)
+        {
+            <a asp-action="Create" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> @ApplicationResources.Create</a>
+        }
+        @if (Model.Edit)
+        {
+            <a class="btn btn-primary disabled"><i class="fa fa-pencil" aria-hidden="true"></i> @ApplicationResources.Edit</a>
+        }
+        @*@if (Model.Delete)
+    {
+        <a class="btn btn-danger disabled" id="delete-button" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o" aria-hidden="true"></i> @ApplicationResources.Delete</a>
+    }*@
+    </div>
+    @if (Model.Choose)
+    {
+        <div class="btn-group" role="group" aria-label="Choose group">
+            <a class="btn btn-default disabled"><i class="fa fa-hand-o-up" aria-hidden="true"></i> @ApplicationResources.Choose</a>
+        </div>
+    }
+    @*<div class="btn-group" role="group" aria-label="Approve group">
+            @if (Model.Approve)
+            {
+                <a class="btn btn-success disabled" id="showapprove-modalButton" title="@ApplicationResources.Approve"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a>
+            }
+            @if (Model.Disapprove)
+            {
+                <a class="btn btn-warning disabled" id="showDisapprove-modalButton" title="@ApplicationResources.Disapprove"><i class="fa fa-thumbs-down" aria-hidden="true"></i></a>
+            }
+        </div>*@
+    <div class="btn-group" role="group" aria-label="Filter / Export group">
+        @if (Model.Sum)
+        {
+            <a class="btn btn-default" title="@AccountingResources.Sum"><i class="fa fa-calculator" aria-hidden="true"></i></a>
+        }
+        @if (Model.Print)
+        {
+            <a class="btn btn-default disabled"><i class="fa fa-print" aria-hidden="true"></i> @ApplicationResources.Print</a>
+        }
+        @if (Model.Export)
+        {
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-download" aria-hidden="true"></i> @ApplicationResources.Export <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" id="export-excel-button"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export To Excel</a></li>
+                    @*<li role="separator" class="divider"></li>
+                    <li class="disabled"><a href="#"><i class="fa fa-file-text" aria-hidden="true"></i> Export To Text</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="disabled"><a href="#"><i class="fa fa-file-code-o" aria-hidden="true"></i> Export To Xml</a></li>*@
+                </ul>
+            </div>
+        }
+        @if (Model.Refresh)
+        {
+            <a class="btn btn-default" id="refresh-button"><i class="fa fa-refresh" aria-hidden="true"></i> @ApplicationResources.Refresh</a>
+        }
+        @if (Model.Filter)
+        {
+            <a class="btn btn-default" id="filter-panel-button" data-toggle="modal" data-target="#filter-modal"><i class="fa fa-filter" aria-hidden="true"></i> @ApplicationResources.Filter</a>
+        }
+    </div>
+</div>
+@if (Model.Delete)
+{
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="delete-modal-label">@ApplicationResources.Delete</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@ApplicationResources.DeleteRecordsQuestion</p>
+                    <input type="hidden" id="delete-hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="delete-modal-ok-button"><i class="fa fa-check" aria-hidden="true"></i> @ApplicationResources.Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i> @ApplicationResources.No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.Approve)
+{
+    <div class="modal fade" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="approve-modal-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="approve-modal-label">@ApplicationResources.Approve</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@ApplicationResources.ApproveRecordsQuestion</p>
+                    <input type="hidden" id="approve-hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="approve-modal-ok-button"><i class="fa fa-check" aria-hidden="true"></i> @ApplicationResources.Yes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i> @ApplicationResources.No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

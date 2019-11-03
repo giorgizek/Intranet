@@ -1,0 +1,58 @@
+﻿@using Intranet
+@{
+    var controller = ViewContext.GetController();
+}
+@*@inject SignInManager<User> SignInManager
+    @if (SignInManager.IsSignedIn(User))*@
+
+@*@if (User.IsSignedIn())
+    {*@
+<form name="sidebar-search-form" id="sidebar-search-form">
+    <input type="text" class="form-control" id="sidebar-search-textbox" placeholder="@ApplicationResources.Search...">
+</form>
+<br />
+<div id="sidebar-search-nav"></div>
+<div class="list-group panel nav-sidebar" id="sidebar-nav">
+    <a asp-controller="Employees" asp-action="Index" asp-route-id="" class="list-group-item @(controller == "Employees" ? "active" : string.Empty)"><i class="fa fa-user fa-fw" aria-hidden="true"></i> @HrResources.Employees</a>
+    <a href="#hr-group" class="list-group-item" data-toggle="collapse" data-parent="#sidebar">HR <i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>
+    <div class="collapse" id="hr-group">
+        <a href="~/doc/hr/DayOff.xlsx" class="list-group-item">დეიოფის მოთხოვნის ფორმა</a>
+        <a href="~/doc/hr/Maternity.xlsx" class="list-group-item">დეკრეტული შვებულების მოთხოვნის ფორმა</a>
+        <a href="~/doc/hr/OffLeave.xlsx" class="list-group-item">შვებულების მოთხოვნის ფორმა</a>
+        <a href="~/doc/hr/Complain.xlsx" class="list-group-item">საჩივრის ფორმა</a>
+        <a href="~/doc/hr/ContractV.xlsx" class="list-group-item">ხელშეკრულების შეწყვეტა</a>
+        <a href="~/doc/hr/GPIComp.pdf" class="list-group-item">სადაზღვევო კომპანია ჯიპიაი ჰოლდინგი - შინაგანაწესი</a>
+        <a href="~/doc/hr/Zeganakveti.xlsx" class="list-group-item">ზეგანაკვეთური სამუშაოს მოთხოვნის ფორმა</a>
+    </div>
+    
+    <a href="#marketing-group" class="list-group-item @(controller == "Marketings" ? "active" : string.Empty)" data-toggle="collapse" data-parent="#sidebar">მარკეტინგი<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>
+    <div class="collapse" id="marketing-group">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfimnlrviwxyaEzcU8NWqgLPLiLAta1QcpmIj22WAwQDhQIlQ/viewform" target="_blank" class="list-group-item">სავიზიტო ბარათების მოთხოვნის ფორმა</a>
+    </div>
+
+    <a href="#logistic-group" class="list-group-item" data-toggle="collapse" data-parent="#sidebar">სამეურნეო სამსახური<i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>
+    <div class="collapse" id="logistic-group">
+        @await Component.InvokeAsync("Product")
+        <a href="~/doc/logistic/Inventory.xls" class="list-group-item">ინვენტარის შეცვლის შესახებ</a>
+        <a href="~/doc/logistic/Chancellary.xlsx" class="list-group-item">მოთხოვნა საკანცელარიო ნივთებზე</a>
+        <a href="~/doc/logistic/sawvavi.docx" class="list-group-item">საწვავის მოთხოვნის ფორმა</a>
+        <a href="~/doc/logistic/tanxismotxovnis.docx" class="list-group-item">თანხის მოთხოვნის ფორმა საწვავის შესაძენად</a>
+        <a href="~/doc/logistic/InventaryMov.xlsx" class="list-group-item">ინვენტარის გადაადგილების ფორმა</a>
+        <a href="~/doc/logistic/Higiena.xlsx" class="list-group-item">მოთხოვნა ჰიგიენურ საშუალებებზე</a>
+        <a href="~/doc/logistic/Chamobareba.xlsx" class="list-group-item">ინვენტარის დაბრუნების აქტი</a>
+    </div>
+
+    @if (User.IsInAnyRole(Constants.Roles.Admin, Constants.Roles.IT, Constants.Roles.HR))
+    {
+        <a href="#admin-group" class="list-group-item" data-toggle="collapse" data-parent="#sidebar">Admin <i class="fa fa-caret-right pull-right" aria-hidden="true"></i></a>
+        <div class="collapse" id="admin-group">
+            <a asp-controller="AdminEmployees" asp-action="Index" class="list-group-item @(controller == "AdminEmployees" ? "active" : string.Empty)"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i><i class="fa fa-users fa-fw" aria-hidden="true"></i> @HrResources.Employees</a>
+            <a asp-controller="AdminJobTitles" asp-action="Index" class="list-group-item @(controller == "AdminJobTitles" ? "active" : string.Empty)"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i> @HrResources.JobTitle</a>
+            <a asp-controller="AdminProducts" asp-action="Index" class="list-group-item @(controller == "AdminProducts" ? "active" : string.Empty)"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i><i class="fa fa-product-hunt fa-fw" aria-hidden="true"></i> @ProductResources.Products</a>
+            <a asp-controller="AdminDocumentTemplates" asp-action="Index" class="list-group-item @(controller == "AdminDocumentTemplates" ? "active" : string.Empty)"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i><i class="fa fa-file fa-fw" aria-hidden="true"></i> Templates</a>
+        </div>
+    }
+</div>
+@await Component.InvokeAsync("Birthday")
+
+@*}*@

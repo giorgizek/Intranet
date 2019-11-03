@@ -1,0 +1,80 @@
+﻿@model InfoViewModel
+<div class="form-group">
+    <label asp-for="Id" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-5">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="Id" class="form-control" readonly />
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="CreateDate" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-5">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="CreateDate" class="form-control" readonly />
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Creator" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-9 col-md-10">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="Creator.Value" class="form-control" title="ID = @Model?.Creator?.Key" readonly />
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="ModifiedDate" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-5">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="ModifiedDate" class="form-control" readonly />
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Modifier" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-9 col-md-10">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="Modifier.Value" class="form-control" title="ID = @Model?.Modifier?.Key" readonly />
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="ApproveDate" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-5">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="ApproveDate" class="form-control" readonly />
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Approver" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-9 col-md-10">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="Approver.Value" class="form-control" title="ID = @Model?.Approver?.Key" readonly />
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="IsDeleted" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-5">
+        <div class="btn-group" role="group" aria-label="Delete / Restore">
+            <button type="button" class="btn btn-default" disabled>
+                <i class="fa fa-@(Model != null && Model.IsDeleted ? "check-" : "")square-o fa-fw" aria-hidden="true"></i>
+            </button>
+            @if (Model != null && Model.IsDeleted)
+            {
+                <button type="button" class="btn btn-success" id="restore-modal-button">
+                    <i class="fa fa-history" aria-hidden="true"></i> @ApplicationResources.Restore
+                </button>
+            }
+        </div>
+    </div>
+</div>

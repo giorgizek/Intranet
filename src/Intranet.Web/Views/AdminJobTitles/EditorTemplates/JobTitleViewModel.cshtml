@@ -1,0 +1,35 @@
+﻿@using Zek.Extensions.Collections;
+@model Intranet.Model.ViewModel.Dictionary.JobTitleViewModel
+<input type="hidden" asp-for="Id" />
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home" aria-hidden="true"></i> @ApplicationResources.Main</a></li>
+    <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info" aria-hidden="true"></i> @ApplicationResources.Info</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="main">
+        @Model.ReadOnly
+        <div class="form-group">
+            <label asp-for="DepartmentId" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <select asp-for="DepartmentId" asp-items="Model?.Departments" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : null)">
+                    <option>&nbsp;</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <hr/>
+        @for (var i = 0; i < Model.Texts.Count; i++)
+        {
+            <div class="form-group">
+                <label asp-for="@Model.Texts[i].Value" class="col-sm-3 col-md-2 control-label">@Model.Cultures.TryGetValue(Model.Texts[i].Key)</label>
+                <div class="col-sm-9 col-md-10">
+                    <input asp-for="@Model.Texts[i].Key" type="hidden"/>
+                    <input asp-for="@Model.Texts[i].Value" class="form-control" readonly="@(Model.ReadOnly ? "readonly" : null)"/>
+                    <span asp-validation-for="@Model.Texts[i].Value" class="text-danger"></span>
+                </div>
+            </div>
+        }
+    </div>
+    <div role="tabpanel" class="tab-pane" id="info"></div>
+</div>

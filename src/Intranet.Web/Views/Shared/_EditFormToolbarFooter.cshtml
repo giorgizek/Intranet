@@ -1,0 +1,19 @@
+﻿<div class="btn-toolbar" role="toolbar" aria-label="Footer Toolbar">
+    <div class="btn-group" role="group" aria-label="First group">
+        @if (ViewData["ReturnUrl"] == null)
+        {
+            @if (ViewContext.GetAction() != "Index")
+            {
+                <a asp-action="Index" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> @ApplicationResources.BackToList</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-controller="Home" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> @ApplicationResources.BackToList</a>
+            }
+        }
+        else
+        {
+            <a asp href="@ViewData["ReturnUrl"]" class="btn btn-default"><i class="fa fa-arrow-left" aria-hidden="true"></i> @ApplicationResources.BackToList</a>
+        }
+    </div>
+</div>

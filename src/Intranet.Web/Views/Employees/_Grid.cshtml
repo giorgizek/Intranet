@@ -1,0 +1,49 @@
+﻿@model EmployeeFilterViewModel
+@{
+    var column = 2;
+    var css = 12 / column;
+}
+
+<div id="grid">
+    @for (var i = 0; i < Model.PagedList.Count; i++)
+    {
+        var item = Model.PagedList[i];
+        if (i % column == 0)
+        {
+            @:<div class="row row-eq-height">
+        }
+        <div class="col-lg-@css" data-id="@item.Id">
+            <div class="contact-box panel panel-default">
+                <div class="col-sm-4">
+                    <div class="text-center">
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@Url.Content($"~/images/employees/{item.ImageUrl}")" class="img-circle img-responsive" alt="Employee Image" width="128" height="128">
+                        }
+                        else
+                        {
+                            <img class="img-circle img-responsive" src="~/images/no-image.svg", alt="No Image">
+                        }
+                        <div class="font-weight-bold">@item.JobTitle</div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <h3><strong>@item.FullName</strong></h3>
+                    <p><i class="fa "></i> @item.Department</p>
+                    <p><i class="fa fa-map-marker" aria-hidden="true"></i> @item.Branch</p>
+                    <address>
+                        <i class="fa fa-mobile fa-fw"  aria-hidden="true" title="@ContactResources.Mobile"></i> @item.Contact.Mobile1<br />
+                        <i class="fa fa-phone fa-fw"  aria-hidden="true" title="@ContactResources.ExtensionNumber"></i> @item.Contact.Phone1<br />
+                        <i class="fa fa-envelope fa-fw"  aria-hidden="true" title="@EmailResources.Email"></i> <a href="mailto:@item.Contact.Email1">@item.Contact.Email1</a><br />
+                    </address>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        if (i % column == column - 1 || i == Model.PagedList.Count - 1)
+        {
+            @:</div>
+        }
+    }
+</div>
+@{ await Html.RenderPartialAsync("_PagedList", Model.PagedList); }

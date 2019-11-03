@@ -1,0 +1,66 @@
+﻿@model Intranet.Model.ViewModel.Document.DocumentFilterViewModel
+
+<h1 class="page-header">@ViewData["Title"]</h1>
+
+<form asp-action="Index" method="post" id="filter-form" class="form-horizontal">
+    @{ await Html.RenderPartialAsync("_Filter"); }
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar" id="toolbar">
+                <div class="btn-group" role="group" aria-label="CRUD group">
+                    <a asp-action="Create" asp-route-templateId="@Model.TemplateId" asp-route-returnUrl="@ViewData[nameof(DocumentsController.ReturnUrl)]"  class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> @ApplicationResources.Create</a>
+                </div>
+                <div class="btn-group" role="group" aria-label="Filter / Export group">
+                    <a class="btn btn-default" id="refresh-button"><i class="fa fa-refresh" aria-hidden="true"></i> @ApplicationResources.Refresh</a>
+                    <a class="btn btn-default" id="filter-panel-button" data-toggle="modal" data-target="#filter-modal"><i class="fa fa-filter" aria-hidden="true"></i> @ApplicationResources.Filter</a>
+                </div>
+            </div>
+            <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="delete-modal-label">@ApplicationResources.Delete</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>@ApplicationResources.DeleteRecordsQuestion</p>
+                            <input type="hidden" id="delete-hidden" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" id="delete-modal-ok-button"><i class="fa fa-check" aria-hidden="true"></i> @ApplicationResources.Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i> @ApplicationResources.No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="approve-modal" tabindex="-1" role="dialog" aria-labelledby="approve-modal-label">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="approve-modal-label">@ApplicationResources.Approve</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>@ApplicationResources.ApproveRecordsQuestion</p>
+                            <input type="hidden" id="approve-hidden" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="approve-modal-ok-button"><i class="fa fa-check" aria-hidden="true"></i> @ApplicationResources.Yes</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban" aria-hidden="true"></i> @ApplicationResources.No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="grid-container" class="table-responsive">
+            @{ await Html.RenderPartialAsync("_Grid"); }
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScripts");
+        await Html.RenderPartialAsync("_ListFormScripts");
+    }
+}

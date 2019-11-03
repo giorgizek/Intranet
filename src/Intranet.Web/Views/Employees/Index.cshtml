@@ -1,0 +1,61 @@
+﻿@model EmployeeFilterViewModel
+<h1 class="page-header">@ViewData["Title"]</h1>
+
+<form asp-action="Index" method="post" id="filter-form" class="form-horizontal">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="form-group">
+                <label asp-for="FullName" class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                    <input asp-for="FullName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mobile" class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                    <input asp-for="Mobile" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                    <input asp-for="Phone" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="BranchId" class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                    <select asp-for="BranchId" class="form-control" asp-items="@Model?.Branchs">
+                        <option>&nbsp;</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentId" class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                    <select asp-for="DepartmentId" class="form-control" asp-items="@Model?.Departments" data-target="#@nameof(EmployeeFilterViewModel.JobTitleId)" data-url="@Url.Action(nameof(EmployeesController.GetJobTitlesByDepartmentId))">
+                        <option>&nbsp;</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="JobTitleId" class="col-sm-3 control-label"></label>
+                <div class="col-sm-9">
+                    <select asp-for="JobTitleId" class="form-control" asp-items="@Model?.JobTitles">
+                        <option>&nbsp;</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="grid-container" class="panel-body bg-default">
+            @{ await Html.RenderPartialAsync("_Grid"); }
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScripts");
+        await Html.RenderPartialAsync("_ListFormScripts");
+    }
+}

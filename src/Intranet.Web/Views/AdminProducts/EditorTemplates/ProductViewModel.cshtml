@@ -1,0 +1,45 @@
+﻿@using Zek.Model.ViewModel.Production
+@model ProductViewModel
+<input type="hidden" asp-for="Id" />
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home" aria-hidden="true"></i> @ApplicationResources.Main</a></li>
+    <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info" aria-hidden="true"></i> @ApplicationResources.Info</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="main">
+        <div class="form-group">
+            <label asp-for="Name" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProductNumber" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-3 col-md-4">
+                <input asp-for="ProductNumber" class="form-control"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CategoryId" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <select asp-for="CategoryId" asp-items="Model?.Categories" class="form-control" data-target="#@nameof(ProductViewModel.SubCategoryId)" data-url="@Url.Action(nameof(AdminProductsController.GetSubCategories))">
+                    <option>&nbsp;</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubCategoryId" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <select asp-for="SubCategoryId" asp-items="Model?.SubCategories" class="form-control">
+                    <option>&nbsp;</option>
+                </select>
+                <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="info">
+    </div>
+</div>

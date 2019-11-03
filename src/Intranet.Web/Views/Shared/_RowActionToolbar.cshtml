@@ -1,0 +1,72 @@
+﻿@model RowActionViewModel
+@if (Model != null)
+{
+    <div class="btn-group btn-group-sm" role="group" aria-label="Row action group">
+        @if (!string.IsNullOrEmpty(Model.Controller))
+        {
+            if (Model.ShowDetail)
+            {
+                if (!string.IsNullOrEmpty(Model.DetailsAction))
+                {
+                    <a class="btn btn-primary" asp-action="@Model.DetailsAction" asp-controller="@Model.Controller" asp-route-id="@Model.Id" asp-route-returnurl="@Context.Request.Path@Context.Request.QueryString" title="@ApplicationResources.Details" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                }
+            }
+            if (Model.ShowEdit)
+            {
+                if (!string.IsNullOrEmpty(Model.EditAction))
+                {
+                    <a class="btn btn-primary" asp-action="@Model.EditAction" asp-controller="@Model.Controller" asp-route-id="@Model.Id" asp-route-returnurl="@Context.Request.Path@Context.Request.QueryString" title="@ApplicationResources.Edit" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                }
+                else
+                {
+                    <a href="#" class="btn btn-default disabled" title="@ApplicationResources.Edit" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                }
+            }
+        }
+        else
+        {
+            if (Model.ShowDetail)
+            {
+                if (!string.IsNullOrEmpty(Model.DetailsAction))
+                {
+                    <a class="btn btn-primary" asp-action="@Model.DetailsAction" asp-route-id="@Model.Id" asp-route-returnurl="@Context.Request.Path@Context.Request.QueryString" title="@ApplicationResources.Details" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                }
+            }
+            if (Model.ShowEdit)
+            {
+                if (!string.IsNullOrEmpty(Model.EditAction))
+                {
+                    <a class="btn btn-primary" asp-action="@Model.EditAction" asp-route-id="@Model.Id" asp-route-returnurl="@Context.Request.Path@Context.Request.QueryString" title="@ApplicationResources.Edit" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                }
+                else
+                {
+                    <a href="#" class="btn btn-default disabled" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                }
+            }
+        }
+
+        @if (Model.ShowApprove)
+        {
+            if (!string.IsNullOrEmpty(Model.ApproveAction))
+            {
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approve-modal" data-ajax-url="@Url.Action(Model.ApproveAction, Model.Controller, new {id = Model.Id})" title="@ApplicationResources.Approve"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-default" disabled="disabled" title="@ApplicationResources.Approve"><i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+            }
+        }
+
+        @if (Model.ShowDelete)
+        {
+            if (!string.IsNullOrEmpty(Model.DeleteAction))
+            {
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-ajax-url="@Url.Action(Model.DeleteAction, Model.Controller, new {id = Model.Id})" title="@ApplicationResources.Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            }
+            else
+            {
+                <button type="button" class="btn btn-default" disabled="disabled" title="@ApplicationResources.Delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            }
+        }
+    </div>
+}

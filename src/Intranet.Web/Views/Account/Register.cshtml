@@ -1,0 +1,85 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = MembershipResources.Register;
+}
+
+<h2 class="page-header">@ViewData["Title"]</h2>
+
+<div class="col-md-6">
+    <div class="well">
+        <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal validation">
+            <h4>@MembershipResources.CreateNewAccount</h4>
+            <hr />
+            @{ await Html.RenderPartialAsync("_ValidationSummary"); }
+            <div class="form-group">
+                <label asp-for="Email" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-unlock" aria-hidden="true"></i></span>
+                        <input asp-for="Password" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-repeat" aria-hidden="true"></i></span>
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                    </div>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <strong><input asp-for="AcceptUserAgreement" type="checkbox"> @MembershipResources.Agree <a href="#" data-toggle="modal" data-target="#termsModal" class="text-info">@MembershipResources.TermsAndConditionsDative</a></strong>
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-9 text-right">
+                    <button type="submit" class="btn btn-primary" id="registerButton" @(Model == null || !Model.AcceptUserAgreement ? "disabled" : "")><i class="fa fa-check" aria-hidden="true"></i> @MembershipResources.Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="col-md-4">
+    @*<h2>@AccountResources.RegisterSimpleSteps:</h2>
+    <blockquote>
+        <p>@AccountResources.RegisterStep1</p>
+    </blockquote>
+    <blockquote>
+        <p>@AccountResources.RegisterStep2</p>
+    </blockquote>
+    <blockquote>
+        <p>@AccountResources.RegisterStep3</p>
+    </blockquote>*@
+</div>
+
+@{ await Html.RenderPartialAsync("_TermsAndConditionsModal"); }
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScripts"); }
+
+    <script>
+        $('#AcceptUserAgreement').click(function () {
+            if ($(this).is(':checked')) {
+                $('#registerButton').removeAttr('disabled');
+            } else {
+                $('#registerButton').attr('disabled', true);
+            }
+        });
+    </script>
+}

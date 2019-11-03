@@ -1,0 +1,16 @@
+﻿@model AlertViewModel
+@if (Model != null)
+{
+    <div class="alert alert-@Model.Css @(Model.Dismissible ? "alert-dismissible" : string.Empty)" role="alert">
+        @if (Model.Dismissible)
+        {
+            <button type="button" class="close" data-dismiss="alert" aria-label="@ApplicationResources.Close"><span aria-hidden="true">&times;</span></button>
+        }
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <strong>@Model.Title</strong>
+        }
+        @Model.Text
+        @Html.Raw(Model.Html)
+    </div>
+}

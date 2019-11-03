@@ -1,0 +1,45 @@
+﻿@model ButtonBrowseViewModel
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var fieldId = fieldName.Replace('.', '_');
+    var isControllerEmpty = Convert.ToInt32(Model?.Controller) == 0;
+}
+
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">@fieldName property is null</div>
+}
+else if (isControllerEmpty)
+{
+    <div class="alert alert-warning" role="alert">(@fieldName).Partial property is "None"</div>
+}
+else
+{
+    <!-- ButtonBrowse Start -->
+    <div class="input-group bb" id="@fieldId" data-modal-ajax-url="@Url.Action(nameof(ButtonBrowsesController.Popup), "ButtonBrowses", new { partial = Model.Controller, parameters = Model.Parameters })" data-text-ajax-url="@Url.Action(Model.Controller + "Text", "ButtonBrowses")" data-readonly="@(Model.ReadOnly ? "readonly" : string.Empty )">
+    <input type="hidden" asp-for="Id" aria-describedby="@(fieldId)Status" />
+    <input asp-for="Name" class="form-control" title="ID = @Model.Id" readonly />
+    <div class="input-group-btn">
+    <button type="button" class="btn btn-default bb-modal @(Model.ReadOnly ? "disabled" : string.Empty)">
+    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+    <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-right">
+    @if (Model.Create)
+                {
+                    <li><a asp-action="Create" asp-controller="@Model.Controller" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i> @ApplicationResources.Create</a></li>
+    }
+    @if (Model.Edit)
+                {
+                    <li><a asp-action="Edit" asp-route-id="@Model.Id" asp-controller="@Model.Controller" target="_blank"><i class="fa fa-pencil" aria-hidden="true"></i> @ApplicationResources.Edit</a></li>
+    }
+    <li class="@(Model.ReadOnly ? "disabled" : string.Empty)"><a href="#" class="bb-delete"><i class="fa fa-trash" aria-hidden="true"></i> @ApplicationResources.Delete <kbd>delete</kbd></a></li>
+    </ul>
+    </div>
+    </div>
+    <span asp-validation-for="Id" id="@(fieldId)Status" class="text-danger"></span>
+    <!-- ButtonBrowse End -->
+}

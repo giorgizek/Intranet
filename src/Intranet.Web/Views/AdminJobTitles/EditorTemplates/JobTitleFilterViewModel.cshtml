@@ -1,0 +1,22 @@
+﻿@model Intranet.Model.ViewModel.Dictionary.JobTitleFilterViewModel
+<div class="form-group">
+    <label asp-for="Id" class="col-sm-3 control-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Id" class="form-control" autofocus />
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Name" class="col-sm-3 control-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Name" class="form-control" />
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="DepartmentId" class="col-sm-3 control-label"></label>
+    <div class="col-sm-9">
+        <select asp-for="DepartmentId" class="form-control" asp-items="@Model?.Departments">
+            <option>&nbsp;</option>
+        </select>
+    </div>
+</div>
+

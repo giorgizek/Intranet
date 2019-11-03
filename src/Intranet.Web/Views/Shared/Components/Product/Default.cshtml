@@ -1,0 +1,10 @@
+﻿@using Intranet.Model.ViewModel.Document
+@model IEnumerable<DocumentTemplatesViewModel>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <a asp-controller="Documents" asp-action="Index" asp-route-templateId="@item.Id" class="list-group-item">@item.Name</a>
+    }
+}

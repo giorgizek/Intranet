@@ -1,0 +1,7 @@
+﻿@model ButtonBrowseFilterToolbarViewModel
+<button type="button" class="btn btn-default" id="bb-filter-button" title="@ApplicationResources.Filter"><i class="fa fa-filter" aria-hidden="true"></i></button>
+<button type="reset" class="btn btn-default" title="@ApplicationResources.Reset"><i class="fa fa-times" aria-hidden="true"></i></button>
+@if (Model != null && Model.Create)
+{
+    <a class="btn btn-default" href="@Model.CreateUrl" target="_blank" title="@ApplicationResources.Create"><i class="fa fa-plus" aria-hidden="true"></i></a>
+}

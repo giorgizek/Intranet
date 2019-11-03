@@ -1,0 +1,40 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+@inject SignInManager<User> SignInManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Intranet.Web</title>
+    @await Html.PartialAsync("_Css")
+    
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    @{ await Html.RenderPartialAsync("_Navbar"); }
+
+@*@if (SignInManager.IsSignedIn(User))
+{*@
+    <div class="container-fluid body-content">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                @{ await Html.RenderPartialAsync("_Sidebar"); }
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+@*}
+else
+{
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+}*@
+
+    @await Html.PartialAsync("_Scripts")
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

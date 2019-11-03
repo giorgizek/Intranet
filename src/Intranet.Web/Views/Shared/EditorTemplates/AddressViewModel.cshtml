@@ -1,0 +1,45 @@
+﻿@model AddressViewModel
+<div class="form-group">
+    <label asp-for="CountryId" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-9 col-md-10">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-globe fa-fw" aria-hidden="true"></i></span>
+            <select asp-for="CountryId" asp-items="@Model?.Countries" class="form-control" data-target="#@Html.IdFor(m => m.CityId)" data-url="@Url.Action("GetCitiesByCountryId")">
+                <option></option>
+            </select>
+        </div>
+        <span asp-validation-for="CountryId" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="CityId" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-9 col-md-10">
+        <select asp-for="CityId" class="form-control" asp-items="@Model?.Cities">
+        </select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Street" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-9 col-md-10">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw" aria-hidden="true"></i></span>
+            <input asp-for="Street" class="form-control" placeholder="@ContactResources.StreetPlaceholder" />
+        </div>
+        <span asp-validation-for="Street" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="HouseNumber" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-5">
+        <input asp-for="HouseNumber" class="form-control" placeholder="@ContactResources.HouseNumberPlaceholder" />
+        <span asp-validation-for="HouseNumber" class="text-danger"></span>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="PostalCode" class="col-sm-3 col-md-2 control-label"></label>
+    <div class="col-sm-5">
+        <input asp-for="PostalCode" class="form-control" placeholder="@ContactResources.PostalCodePlaceHolder" />
+        <span asp-validation-for="PostalCode" class="text-danger"></span>
+    </div>
+</div>

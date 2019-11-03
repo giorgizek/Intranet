@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Zek\src\Zek\Zek.csproj" />
+    <ProjectReference Include="..\Intranet.Model\Intranet.Model.csproj" />
+    <ProjectReference Include="..\Intranet\Intranet.csproj" />
+  </ItemGroup>
+
+</Project>

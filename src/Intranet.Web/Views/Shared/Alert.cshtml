@@ -1,0 +1,8 @@
+﻿@model AlertViewModel
+
+@if (ViewData["Title"] != null)
+{
+    <h1 class="page-header">@ViewData["Title"]</h1>
+}
+
+@{ await Html.RenderPartialAsync("_Alert", Model); }

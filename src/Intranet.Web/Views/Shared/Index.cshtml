@@ -1,0 +1,18 @@
+﻿<h1 class="page-header">@ViewData["Title"]</h1>
+
+<form asp-action="Index" method="post" id="filter-form" class="form-horizontal">
+    @{ await Html.RenderPartialAsync("_Filter"); }
+    <div class="panel panel-default">
+        <div class="panel-heading">@{ await Html.RenderPartialAsync("_ListFormToolbar", new DefaultListFormToolbarViewModel()); }</div>
+        <div id="grid-container" class="table-responsive">
+            @{ await Html.RenderPartialAsync("_Grid"); }
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScripts");
+        await Html.RenderPartialAsync("_ListFormScripts");
+    }
+}

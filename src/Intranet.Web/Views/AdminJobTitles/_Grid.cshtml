@@ -1,0 +1,27 @@
+﻿@model Intranet.Model.ViewModel.Dictionary.JobTitleFilterViewModel
+
+<table class="table table-striped table-bordered table-condensed table-hover" id="grid">
+    <thead>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Default.Id)</th>
+        <th>@Html.DisplayNameFor(model => model.Default.Department)</th>
+        <th>@Html.DisplayNameFor(model => model.Default.Name)</th>
+        <th class="col-action">@ApplicationResources.Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.PagedList)
+    {
+        var css = item.IsDeleted ? "danger" : string.Empty;
+        <tr data-id="@item.Id" class="@css">
+            <td>@item.Id</td>
+            <td>@item.Department</td>
+            <td>@item.Name</td>
+            <td>@{ await Html.RenderPartialAsync("_RowActionToolbar", new RowActionViewModel(item.Id) { ShowDetail = false, ShowApprove = false }); }</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<div class="panel-footer">
+    @{ await Html.RenderPartialAsync("_PagedList", Model.PagedList); }
+</div>

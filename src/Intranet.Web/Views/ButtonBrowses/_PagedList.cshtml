@@ -1,0 +1,4 @@
+﻿@model IPagedList
+<div class="panel-footer" id="bb-paged-list">
+    @Html.PagedListPager(Model, page => "#" + page, PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>

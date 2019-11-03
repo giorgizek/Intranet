@@ -1,0 +1,37 @@
+﻿@using Intranet.Model.ViewModel.Employee
+@model BirthdayViewModel
+
+@if (Model != null)
+{
+    <div id="birthday-panel" class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <i class="fa fa-birthday-cake" aria-hidden="true"></i> @PersonResources.BirthDays <span class="pull-right badge">@Model.Count</span>
+            </h3>
+        </div>
+
+        <ul class="list-group">
+            @foreach (var item in Model.Birthdays)
+            {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            @if (!string.IsNullOrEmpty(item.ImageUrl))
+                            {
+                                <img src="@Url.Content($"~/images/employees/{item.ImageUrl}")" class="img-circle img-responsive" alt="Employee Image">
+                            }
+                            else
+                            {
+                                <img class="img-circle img-responsive" src="~/images/no-image.svg" , alt="No Image">
+                            }
+                        </div>
+                        <div class="col-sm-8">
+                            <strong><a asp-controller="Employees" asp-action="Index" asp-route-id="@item.Id">@item.FirstName @item.LastName</a></strong> <br />
+                            <small>@item.JobTitle</small>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}

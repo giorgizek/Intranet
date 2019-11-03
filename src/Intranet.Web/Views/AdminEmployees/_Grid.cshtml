@@ -1,0 +1,31 @@
+﻿@model EmployeeFilterViewModel
+
+<table class="table table-striped table-bordered table-condensed table-hover" id="grid">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Default.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Default.FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.Default.PersonalNumber)</th>
+            <th>@Html.DisplayNameFor(model => model.Default.JobTitle)</th>
+            <th>@Html.DisplayNameFor(model => model.Default.Department)</th>
+            <th class="col-action">@ApplicationResources.Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PagedList)
+        {
+            var css = item.IsDeleted ? "danger" : string.Empty;
+            <tr data-id="@item.Id" class="@css">
+                <td>@item.Id</td>
+                <td>@item.FullName</td>
+                <td>@item.PersonalNumber</td>
+                <td>@item.JobTitle</td>
+                <td>@item.Department</td>
+                <td>@{ await Html.RenderPartialAsync("_RowActionToolbar", new RowActionViewModel(item.Id) { ShowDetail = false, ShowApprove = false }); }</td>
+            </tr>
+                    }
+    </tbody>
+</table>
+<div class="panel-footer">
+    @{ await Html.RenderPartialAsync("_PagedList", Model.PagedList); }
+</div>

@@ -1,0 +1,22 @@
+@*@model dynamic*@
+<h1 class="page-header">@ViewData["Title"] <small>[@ApplicationResources.Edit]</small></h1>
+
+<form asp-action="Edit" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]" class="form-horizontal validation" id="edit-form">
+    <div class="panel panel-default">
+        <div class="panel-heading">@{ await Html.RenderPartialAsync("_EditFormToolbar", new DefaultEditFormToolbarViewModel()); }</div>
+        <div class="panel-body">
+            @{ await Html.RenderPartialAsync("_ValidationSummary"); }
+            @Html.EditorForModel()
+        </div>
+        <div class="panel-footer">
+            @{ await Html.RenderPartialAsync("_EditFormToolbarFooter"); }
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScripts");
+        await Html.RenderPartialAsync("_EditFormScripts");
+    }
+}

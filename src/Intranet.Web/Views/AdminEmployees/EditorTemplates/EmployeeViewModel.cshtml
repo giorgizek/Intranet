@@ -1,0 +1,123 @@
+﻿@model EmployeeViewModel
+<input type="hidden" asp-for="Id" />
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home" aria-hidden="true"></i> @ApplicationResources.Main</a></li>
+    <li role="presentation"><a href="#address" aria-controls="additional" role="tab" data-toggle="tab"><i class="fa fa fa-map-marker" aria-hidden="true"></i> @ContactResources.Address</a></li>
+    <li role="presentation"><a href="#contact" aria-controls="additional" role="tab" data-toggle="tab"><i class="fa fa fa-address-book" aria-hidden="true"></i> @ContactResources.Contact</a></li>
+    <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info" aria-hidden="true"></i> @ApplicationResources.Info</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="main">
+        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+        {
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-3 col-md-offset-2">
+                    <img src="@Url.Content($"~/images/employees/{Model.ImageUrl}")" class="img-responsive img-thumbnail" alt="Employee Image" width="128" height="128">
+                    <div class="checkbox">
+                        <label class="btn btn-danger"> <input asp-for="ImageDelete"/><i class="fa fa-trash-o" aria-hidden="true"></i> @ApplicationResources.Delete</label>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <label asp-for="Image" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-paperclip fa-fw"></i></span>
+                    <input asp-for="Image" class="form-control"/>
+                </div>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FirstName" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <input asp-for="FirstName" class="form-control"/>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <input asp-for="LastName" class="form-control"/>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PersonalNumber" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-5">
+                <input asp-for="PersonalNumber" class="form-control"/>
+                <span asp-validation-for="PersonalNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Passport" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-5">
+                <input asp-for="Passport" class="form-control"/>
+                <span asp-validation-for="Passport" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="GenderId" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-5">
+                <select asp-for="GenderId" asp-items="Html.GetEnumSelectList<Zek.Model.Dictionary.Gender>()" class="form-control">
+                    <option></option>
+                </select>
+                <span asp-validation-for="GenderId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BirthDate" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-5">
+                <input asp-for="BirthDate" class="form-control"/>
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label asp-for="DepartmentId" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <select asp-for="DepartmentId" asp-items="Model?.Departments" class="form-control" data-target="#@nameof(EmployeeViewModel.JobTitleId)" data-url="@Url.Action(nameof(AdminEmployeesController.GetJobTitlesByDepartmentId))">
+                    <option>&nbsp;</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobTitleId" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <select asp-for="JobTitleId" asp-items="Model?.JobTitles" class="form-control">
+                    <option>&nbsp;</option>
+                </select>
+                <span asp-validation-for="JobTitleId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="BranchId" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-md-10">
+                <select asp-for="BranchId" asp-items="Model?.Branchs" class="form-control">
+                    <option>&nbsp;</option>
+                </select>
+                <span asp-validation-for="JobTitleId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="@nameof(EmployeeViewModel.StartDate)" class="col-sm-3 col-md-2 control-label">@HrResources.WorkPeriod</label>
+            <div class="col-sm-5">
+                <input asp-for="StartDate" class="form-control"/>
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="col-sm-5">
+                <input asp-for="EndDate" class="form-control"/>
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="address">
+        @Html.EditorFor(m => m.Address)
+    </div>
+    <div role="tabpanel" class="tab-pane" id="contact">
+        @Html.EditorFor(m => m.Contact)
+    </div>
+    <div role="tabpanel" class="tab-pane" id="info"></div>
+</div>

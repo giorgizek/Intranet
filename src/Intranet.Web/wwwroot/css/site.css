@@ -1,0 +1,36 @@
+﻿
+#login-form-container {
+    margin-top: 10px;
+}
+
+@media (min-height: 768px) {
+    #login-form-container {
+        margin-top: 90px;
+    }
+}
+#login-form-container .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+#sidebar-search-form {
+    margin: 10px -19px 1px -19px;
+}
+
+
+
+.contact-box {
+    background-color: #ffffff;
+    border: 1px solid #e7eaec;
+    padding: 20px;
+    margin-bottom: 20px;
+    height: 95%;
+}
+
+
+#birthday-panel {
+    margin-right: -20px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -19px;
+}

@@ -1,0 +1,59 @@
+@model Intranet.Model.ViewModel.Document.DocumentViewModel
+
+<input type="hidden" asp-for="Id" />
+<input type="hidden" asp-for="TemplateId" />
+<ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab"><i class="fa fa-home" aria-hidden="true"></i> @ApplicationResources.Main</a></li>
+    <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"><i class="fa fa-info" aria-hidden="true"></i> @ApplicationResources.Info</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="main">
+        <div class="form-group">
+            <label asp-for="Date" class="col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-4">
+                <input asp-for="Date" class="form-control" readonly />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+
+        @if (Model != null)
+        {
+            <hr />
+            <div class="row">
+                @if (Model.Categories != null)
+                {
+                    foreach (var category in Model.Categories)
+                    {
+                        <div class="col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">@category.Value</h3>
+                                </div>
+                                @if (Model.Products != null)
+                                {
+                                    <ul class="list-group">
+                                        @foreach (var product in Model.Products.Where(p => p.CategoryId == category.Key).OrderBy(t => t.ProductNumber))
+                                        {
+                                            var i = Model.Products.IndexOf(product);
+                                            <li class="list-group-item">
+                                                <div class="form-group">
+                                                    <label asp-for="@Model.Products[i].Quantity" class="col-sm-9 control-label text-left">@product.Name</label>
+                                                    <div class="col-sm-3">
+                                                        <input asp-for="@Model.Products[i].Id" type="hidden"/>
+                                                        <input asp-for="@Model.Products[i].Quantity" class="form-control"/>
+                                                        <span asp-validation-for="@Model.Products[i].Quantity" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    </div>
+    <div role="tabpanel" class="tab-pane" id="info"></div>
+</div>

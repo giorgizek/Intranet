@@ -1,0 +1,17 @@
+﻿<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">
+    <div class="btn-group" role="group" aria-label="First group">
+        <button type="submit" class="btn btn-primary" id="saveButton"><i class="fa fa-save" aria-hidden="true"></i> @ApplicationResources.Save</button>
+        @*<a class="btn btn-primary" id="saveAndClose"><i class="fa fa-save" aria-hidden="true"></i><i class="fa fa-arrow-left" aria-hidden="true"></i> @ApplicationResources.SaveAndClose</a>*@
+        @if (ViewData["ReturnUrl"] == null)
+        {
+            <a asp-action="Index" class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> @ApplicationResources.Cancel</a>
+        }
+        else
+        {
+            <a asp href="@ViewData["ReturnUrl"]" class="btn btn-default"><i class="fa fa-ban" aria-hidden="true"></i> @ApplicationResources.Cancel</a>
+        }
+    </div>
+    @*<div class="btn-group" role="group" aria-label="Second group">
+        <a class="btn btn-default" id="printButton"><i class="fa fa-print" aria-hidden="true"></i> @ApplicationResources.Print</a>
+    </div>*@
+</div>
